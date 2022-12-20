@@ -71,6 +71,9 @@ int main()
     while((current_line=2)&&(!feof(input)))
     {
         fscanf(input,"%c %f %f\n",&type,&length,&height);
+        //this is branching in which the different function will be executed based on the type of shape
+        //if there is a shape other than type A or B, an error message will be displayed
+        //if the length and height are 0 or negative, an error message will also be displayed
         if((type=='A')&&(length>0)&&(height>0))
         {
             shape_A(length,height);
