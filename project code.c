@@ -2,6 +2,9 @@
 #include<stdlib.h>
 #include<stdbool.h>
 
+float shape_A(float b,float h); //function prototype
+float shape_B(float b,float h);
+
 int main()
 {
     printf("===============================\n");
@@ -14,8 +17,8 @@ int main()
     reenter:
     scanf("%s",input_file);
 
-    //the function strcmp means "string compare, if string are equal, then the value will return to 0
-    //the specification format of strcmp is strcmp(<var name>,"<string>')==0
+    //the function strcmp means "string compare", if string are equal, then the value will return to 0
+    //the specification format of strcmp is strcmp(<var name>,"<string>")==0
     if(strcmp(input_file,"input.txt")==0)
     {
         printf("Please enter output file name:");
@@ -27,6 +30,9 @@ int main()
         printf("Please re-enter input file name:");
         goto reenter;
     }
+
+    printf("-------------------------------\n");
+    printf("OUTPUT:\n\n");
 
     FILE*input;
     input=fopen("input.txt","r");
@@ -42,45 +48,43 @@ int main()
         fscanf(input,"%c %f %f",&type,&length,&height);
     }
 
-    printf("Type\t\tb\t\th\t\tMOIcx\t\tMOIcy\t\tMOIx\t\tMOIy\n");
+    printf("Type\tb\t\th\t\tMOIcx\t\tMOIcy\t\tMOIx\t\tMOIy\n");
 
     while((current_line=2)&&(!feof(input)))
     {
         fscanf(input,"%c %f %f\n",&type,&length,&height);
         if((type=='A')&&(length>0)&&(height>0))
         {
-            A(length,height);
+            shape_A(length,height);
         }
         else if((type=='B')&&(length>0)&&(height>0))
         {
-            B(length,height);
+            shape_B(length,height);
         }
         else
         {
-            printf("ERROR!(to be deleted)\n\n");//to be modified
+            printf("%c\t%.3e\t%.3e\t\"INPUT_ERROR\"\n",type,length,height);
         }
     }
 
 }
 
-void A(float b,float h)
+float shape_A(float b,float h)
 {
-    float MOIcx,MOIcy,MOIx,MOIy;
-    MOIcx=(1/12)*b*h*h*h;
-    MOIcy=(1/12)*b*b*b*h;
-    MOIx=(1/3)*b*h*h*h;
-    MOIy=(1/3)*b*b*b*h;
-    printf("A\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\n",b,h,MOIcx,MOIcy,MOIx,MOIy);
+    float cx,cy,x,y;
+    cx=(1./12.)*b*h*h*h;
+    cy=(1./12.)*b*b*b*h;
+    x=(1./3.)*b*h*h*h;
+    y=(1./3.)*b*b*b*h;
+    printf("A\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\n",b,h,cx,cy,x,y);
 }
 
-void B(float b,float h)
+float shape_B(float b,float h)
 {
-    float MOIcx,MOIcy,MOIx,MOIy;
-    MOIcx=(1/36)*b*h*h*h;
-    MOIcy=(1/36)*b*b*b*h;
-    MOIx=(1/12)*b*h*h*h;
-    MOIy=(1/12)*b*b*b*h;
-    printf("B\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\n",b,h,MOIcx,MOIcy,MOIx,MOIy);
+    float cx,cy,x,y;
+    cx=(1./36.)*b*h*h*h;
+    cy=(1./36.)*b*b*b*h;
+    x=(1./12.)*b*h*h*h;
+    y=(1./12.)*b*b*b*h;
+    printf("B\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\t%.3e\n",b,h,cx,cy,x,y);
 }
-
-
